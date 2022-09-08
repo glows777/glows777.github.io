@@ -10,8 +10,8 @@ export default {
         items: [
           { text: "JS", link: "/front_end/JS/" },
           { text: "TS", link: "/front_end/TS/" },
-          { text: "工程化", link: "/front_end/" },
-          { text: "HTML&CSS", link: "/front_end/HTML&CSS/" },
+          { text: "工程化", link: "/front_end/Engineering/" },
+          { text: "HTML&CSS", link: "/front_end/HTML_CSS/" },
         ],
       },
       { text: "Node", link: "/back_end/" },
@@ -53,18 +53,18 @@ export default {
         },
         {
           text: "工程化",
-          items: [],
+          items: [{text: 'Vite', link: '/front_end/Engineering/Vite'}],
         },
         {
           text: "HTML&&CSS",
           items: [
             {
               text: "HTML",
-              items: [{ text: "HTML", link: "/front_end/HTML&CSS/HTML" }],
+              items: [{ text: "HTML", link: "/front_end/HTML_CSS/HTML" }],
             },
             {
               text: "CSS",
-              items: [{ text: "BFC", link: "/front_end/HTML&CSS/HTML" }],
+              items: [{ text: "BFC", link: "/front_end/HTML_CSS/HTML" }],
             },
           ],
         },
