@@ -2,12 +2,12 @@
 layout: home
 
 hero:
-  name: glows777的博客
+  name: glows777's blog🎉
   text: 随便写点啥.
   tagline: 帅气又迷人，我是香橙派来的
-  image:
-    src: /logo.jpg
-    alt: Kitty
+  # image:
+  #   src: /logo.jpg
+  #   alt: Kitty
   actions:
     - theme: brand
       text: 快来快来

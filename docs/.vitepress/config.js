@@ -1,9 +1,12 @@
 export default {
   title: "glows777的博客",
   description: "glows777写文章的地方，不仅限于前端~",
+  lastUpdated: true,
   themeConfig: {
     siteTitle: "glows777",
     logo: "/logo.jpg",
+    outlineTitle: "目录",
+    lastUpdatedText: "更新时间",
     nav: [
       {
         text: "前端",
@@ -36,10 +39,15 @@ export default {
       "/front_end/": [
         {
           text: "JS",
+          collapsible: true,
+          collapsed: false,
           items: [
             { text: "数据类型", link: "/front_end/JS/数据类型" },
             { text: "JS中的类型转换", link: "/front_end/JS/JS中的类型转换" },
-            { text: "==与===的区别", link: "/front_end/JS/双等于与三等于的区别" },
+            {
+              text: "==与===的区别",
+              link: "/front_end/JS/双等于与三等于的区别",
+            },
             { text: "数组常用方法", link: "/front_end/JS/数组常用方法" },
             { text: "字符串常用方法", link: "/front_end/JS/字符串常用方法" },
             {
@@ -53,6 +61,8 @@ export default {
         },
         {
           text: "TS",
+          collapsible: true,
+          collapsed: false,
           items: [
             {
               text: "TS基础",
@@ -66,10 +76,14 @@ export default {
         },
         {
           text: "工程化",
+          collapsible: true,
+          collapsed: false,
           items: [{ text: "Vite", link: "/front_end/Engineering/Vite" }],
         },
         {
           text: "HTML&&CSS",
+          collapsible: true,
+          collapsed: false,
           items: [
             {
               text: "HTML",
@@ -85,24 +99,34 @@ export default {
         },
         {
           text: "Vue",
+          collapsible: true,
+          collapsed: false,
           items: [{ text: "响应式原理", link: "/front_end/Vue/响应式原理" }],
         },
         {
           text: "React",
+          collapsible: true,
+          collapsed: false,
           items: [{ text: "初识React", link: "/front_end/React/初识React" }],
         },
       ],
       "/base/": [
         {
           text: "os",
+          collapsible: true,
+          collapsed: false,
           items: [{ text: "系统调用", link: "/base/os/系统调用" }],
         },
         {
           text: "计网",
+          collapsible: true,
+          collapsed: false,
           items: [{ text: "http", link: "/base/Network/http" }],
         },
         {
           text: "数据结构",
+          collapsible: true,
+          collapsed: false,
           items: [
             { text: "队列", link: "/base/DataStructure/队列" },
             { text: "散列表", link: "/base/DataStructure/散列表" },
@@ -110,6 +134,8 @@ export default {
         },
         {
           text: "算法",
+          collapsible: true,
+          collapsed: false,
           items: [
             { text: "递归", link: "/base/algo/递归" },
             { text: "哈希函数", link: "/base/algo/哈希函数" },
@@ -119,6 +145,10 @@ export default {
           ],
         },
       ],
+    },
+    footer: {
+      message: "glows777's blog🎉",
+      copyright: "Copyright © 2022-present glows777",
     },
   },
 };
