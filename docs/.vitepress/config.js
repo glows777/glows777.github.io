@@ -12,6 +12,8 @@ export default {
           { text: "TS", link: "/front_end/TS/" },
           { text: "工程化", link: "/front_end/Engineering/" },
           { text: "HTML&CSS", link: "/front_end/HTML_CSS/" },
+          { text: "Vue", link: "/front_end/Vue/" },
+          { text: "React", link: "/front_end/React/" },
         ],
       },
       { text: "Node", link: "/back_end/" },
@@ -30,13 +32,24 @@ export default {
       },
     ],
     sidebar: {
-      "/back_end/": [
-        
-      ],
+      "/back_end/": [],
       "/front_end/": [
         {
           text: "JS",
-          items: [{ text: "EventLoop", link: "/front_end/JS/事件循环" }],
+          items: [
+            { text: "数据类型", link: "/front_end/JS/数据类型" },
+            { text: "JS中的类型转换", link: "/front_end/JS/JS中的类型转换" },
+            { text: "==与===的区别", link: "/front_end/JS/双等于与三等于的区别" },
+            { text: "数组常用方法", link: "/front_end/JS/数组常用方法" },
+            { text: "字符串常用方法", link: "/front_end/JS/字符串常用方法" },
+            {
+              text: "执行上下文&作用域&闭包",
+              link: "/front_end/JS/执行上下文_闭包_作用域",
+            },
+            { text: "闭包的一些实践", link: "/front_end/JS/闭包的一些实践" },
+            { text: "深浅拷贝", link: "/front_end/JS/深浅拷贝" },
+            { text: "EventLoop", link: "/front_end/JS/事件循环" },
+          ],
         },
         {
           text: "TS",
@@ -53,7 +66,7 @@ export default {
         },
         {
           text: "工程化",
-          items: [{text: 'Vite', link: '/front_end/Engineering/Vite'}],
+          items: [{ text: "Vite", link: "/front_end/Engineering/Vite" }],
         },
         {
           text: "HTML&&CSS",
@@ -64,9 +77,19 @@ export default {
             },
             {
               text: "CSS",
-              items: [{ text: "BFC", link: "/front_end/HTML_CSS/HTML" }],
+              items: [
+                { text: "CSS一些技巧", link: "/front_end/HTML_CSS/CSS技巧" },
+              ],
             },
           ],
+        },
+        {
+          text: "Vue",
+          items: [{ text: "响应式原理", link: "/front_end/Vue/响应式原理" }],
+        },
+        {
+          text: "React",
+          items: [{ text: "初识React", link: "/front_end/React/初识React" }],
         },
       ],
       "/base/": [
@@ -80,11 +103,20 @@ export default {
         },
         {
           text: "数据结构",
-          items: [{ text: "栈", link: "/base/DataStructure/栈" }],
+          items: [
+            { text: "队列", link: "/base/DataStructure/队列" },
+            { text: "散列表", link: "/base/DataStructure/散列表" },
+          ],
         },
         {
           text: "算法",
-          items: [{ text: "栈", link: "/base/algo/快排" }],
+          items: [
+            { text: "递归", link: "/base/algo/递归" },
+            { text: "哈希函数", link: "/base/algo/哈希函数" },
+            { text: "排序（上）", link: "/base/algo/排序（上）" },
+            { text: "排序（下）", link: "/base/algo/排序（下）" },
+            { text: "线性排序", link: "/base/algo/线性排序" },
+          ],
         },
       ],
     },
