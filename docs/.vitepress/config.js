@@ -57,6 +57,7 @@ export default {
             { text: "闭包的一些实践", link: "/front_end/JS/闭包的一些实践" },
             { text: "深浅拷贝", link: "/front_end/JS/深浅拷贝" },
             { text: "EventLoop", link: "/front_end/JS/事件循环" },
+            { text: "JS垃圾回收", link: "/front_end/JS/JS垃圾回收机制" },
           ],
         },
         {
@@ -121,7 +122,10 @@ export default {
           text: "计网",
           collapsible: true,
           collapsed: false,
-          items: [{ text: "http", link: "/base/Network/http" }],
+          items: [
+            { text: "http", link: "/base/Network/http" },
+            { text: "ssh协议", link: "/base/Network/ssh协议" },
+          ],
         },
         {
           text: "数据结构",
