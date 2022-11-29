@@ -26,7 +26,7 @@
 
 - 连接协议将加密的信息隧道复用成若干个逻辑通道，提供给更高层的应用协议使用。同时还有为许多高层的网络安全应用协议提供扩展的支持
 
-![ssh1](https://cdn.staticaly.com/gh/glows777/image-hosting@main/杂/ssh1.6gfagixj5xs0.webp)
+
 
 ## SSH安全验证
 
@@ -132,7 +132,7 @@
 ## 加密解密：
 
 - 需要同时使用公钥和私钥的加密算法是非对称加密，最常见的便是RSA
-- ![image-20220920221824006](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20220920221824006.png)
+
 
 
 
