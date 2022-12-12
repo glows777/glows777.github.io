@@ -124,6 +124,7 @@ export default {
           collapsed: false,
           items: [
             { text: "http", link: "/base/Network/http" },
+            { text: "http报文", link: "/base/Network/http报文" },
             { text: "ssh协议", link: "/base/Network/ssh协议" },
           ],
         },
