@@ -9,7 +9,7 @@
   - 第二部是词法分析（解析），将上一步生成的 token 数据，根据语法规则转为 AST。如果源码符合语法规则，这一步就会顺利完成。但如果源码存在语法错误，这一步就会终止，并抛出一个“语法错误”
   - 随后，V8会生成这段代码的上下文
 
-## 异步加载 JS 脚本时，各种类型的加载有何区别
+## 异步加载 JS 脚本时，各种类型的加载的区别
 
 - 来自[whatwg](https://html.spec.whatwg.org/multipage/scripting.html#the-script-element)的规范![image](https://cdn.staticaly.com/gh/glows777/image-hosting@main/BlogImage/image.708uxk66gyw0.webp)
 
@@ -63,6 +63,16 @@
 
 - 当cookie 没有设置 maxage 时，此 cookie 就是会话级别的，浏览器关闭就没了
 
+- 在默认情况下，浏览器的 cookie 信息是可以在同一个域名下的不同端口之间共享的。也就是说，在**同一个浏览器中**，如果 localhost:3000 设置了一个 cookie，那么 localhost:5000 就可以访问到这个 cookie
+
+  - 如果不希望共享，则需要在设置 cookie 时设置sameSite参数，将 sameSite 参数设置为 "strict" 或 "lax"
+  - 如果将 sameSite 设置为 "strict"，则浏览器会禁止在不同端口之间共享 cookie
+  - 如果将 sameSite 设置为 "lax"，则浏览器会禁止在不同端口之间共享 cookie，除非请求是从当前站点的超链接发出的 -> 这意味着，如果在 localhost:3000 上设置了一个带有 sameSite=lax 的 cookie，则 localhost:5000 上的页面只有在从 localhost:3000 的超链接中访问时才能访问到这个 cookie
+
+  ```javascript
+  document.cookie = "name=John; sameSite=strict"
+  ```
+
 ## prefetch 与 preload 的区别
 
 - prefetch 是在浏览器**空闲**时使用预测机制预先加载某些内容，以便在用户访问时能够更快地呈现给用户
@@ -91,7 +101,57 @@
 - hash 只能改变#后的值，而 history 模式可以随意设置同源 url
 - hash 只能添加字符串类的数据，而 history 可以通过 API 添加多种类型的数据
 - hash无需后端配合且兼容性好，而而 history 需要配置`index.html`用于匹配不到资源的情况
-
 - hash通过`location.hash`跳转路由，`hashchange event` 监听路由变化
 - history通过`history.pushState()`跳转路由,通过`popstate event` 监听路由变化，但无法监听到 `history.pushState()` 时的路由变化
 
+## 事件委托
+
+- 事件委托指当有大量子元素触发事件时，将事件监听器绑定在父元素进行监听，此时数百个事件监听器变为了一个监听器，提升了网页性能
+- 例如： React 把所有事件委托在 Root Element，用以提升性能
+
+## e.currentTarget 与 e.target 有何区别
+
+- `e.currentTarget`是表示事件监听器绑定的元素
+
+- `e.target`是表示真正触发事件的元素
+
+- 例如：
+
+  ```javascript
+  document.querySelector('#my-button').addEventListener('click', function(e) {
+    console.log(e.currentTarget);
+  });
+  
+  // 此时，e.currentTarget指向一个id为'my-button'的标签
+  // 如果，这个id为'my-button'的标签里面还有一个'span'的标签，且点击的的是这个'span'，那此时的e.target指向'span'标签，而e.currentTarget仍然指向一个id为'my-button'的标签
+  ```
+
+## XSS与CSRF攻击
+
+### XSS
+
+- 允许攻击者在受信任的网站上注入恶意脚本。这些脚本可以在用户浏览网页时被执行，并可能导致各种后果，例如窃取用户数据、欺骗用户点击恶意链接、改变页面布局等
+- XSS 攻击通常是通过将恶意脚本注入到网站的表单、评论、搜索框等输入字段中执行的。当用户浏览网页时，浏览器会解析并执行这些脚本
+- 为了防止 XSS 攻击，网站应该对用户输入进行过滤和转义，例如对于评论等功能，应该对用户的评论进行过滤，并将其中的 HTML 标签转义为字符实体
+- 或者可以采用Content Security Policy（CSP）来防止 XSS 攻击，CSP可以指定浏览器可以执行哪些脚本的安全策略，例如，指定浏览器只能加载来自受信任的域名的脚本
+
+### CSRF
+
+- 允许攻击者在用户不知情的情况下向受信任的网站发送恶意请求。攻击者通常会通过在受信任的网站上植入恶意链接或广告来执行此类攻击
+- 例如，假设你已登录到你的银行帐户，并且浏览器中保留了登录会话的 cookie。攻击者如果能够让你点击某个恶意链接，就可以通过你的浏览器发送转账请求，而你并不知情
+- 为了防止 CSRF 攻击，网站可以在表单中加入一个隐藏的令牌字段，并将其值存储在**服务器端的会话**中。当客户端发送请求时，服务器会检查请求中的令牌是否与会话中的令牌匹配。如果不匹配，则认为是 CSRF 攻击，并拒绝请求
+- 或者也可以使用 cookie 的 sameSite 属性来防止 CSRF 攻击。同样地，sameSite 可以设置为 "strict" 或 "lax"。如果将 sameSite 设置为 "strict"，则浏览器会禁止从不同站点发送的请求携带 cookie。这可以有效防止 CSRF 攻击，因为攻击者无法在用户的浏览器中设置令牌 cookie
+
+### 区别
+
+- XSS是允许攻击者在受信任的网站上注入恶意脚本，这些脚本可以在用户浏览网页时被执行，并可能导致各种后果，例如窃取用户数据、欺骗用户点击恶意链接、改变页面布局等
+- 而CSRF主要是允许攻击者在用户不知情的情况下向受信任的网站发送恶意请求。攻击者通常会通过在受信任的网站上植入恶意链接或广告来执行此类攻
+
+## 如何计算白屏时间和首屏时间
+
+- 白屏时间一般采用 `performance.timing` 对象中的 `navigationStart` 和 `domLoading` 属性。`navigationStart` 属性表示浏览器开始加载文档的时间，`domLoading` 属性表示浏览器开始解析文档的时间。因此，白屏时间就是 `domLoading - navigationStart` 的值
+- 而首屏时间一般采用 `performance.timing` 对象中的 `navigationStart` 和 `domContentLoadedEventEnd` 属性。`domContentLoadedEventEnd` 属性表示浏览器完成首屏内容的渲染的时间。因此，首屏时间就是 `domContentLoadedEventEnd - navigationStart` 的值
+
+## 重排重绘是？
+
+- 
