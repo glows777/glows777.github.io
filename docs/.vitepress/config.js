@@ -96,6 +96,10 @@ export default {
                 { text: "CSS一些技巧", link: "/front_end/HTML_CSS/CSS技巧" },
               ],
             },
+            {
+              text: "HTML",
+              items: [{ text: "重排和重绘", link: "/front_end/HTML_CSS/重排和重绘" }],
+            },
           ],
         },
         {
