@@ -151,7 +151,3 @@
 
 - 白屏时间一般采用 `performance.timing` 对象中的 `navigationStart` 和 `domLoading` 属性。`navigationStart` 属性表示浏览器开始加载文档的时间，`domLoading` 属性表示浏览器开始解析文档的时间。因此，白屏时间就是 `domLoading - navigationStart` 的值
 - 而首屏时间一般采用 `performance.timing` 对象中的 `navigationStart` 和 `domContentLoadedEventEnd` 属性。`domContentLoadedEventEnd` 属性表示浏览器完成首屏内容的渲染的时间。因此，首屏时间就是 `domContentLoadedEventEnd - navigationStart` 的值
-
-## 重排重绘是？
-
-- 
