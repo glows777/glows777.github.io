@@ -54,9 +54,50 @@
 
 ## URI&&URL
 
+- URI -> **U**niform **R**esource **I**dentifier统一资源标识符
+- URL -> **U**niform **R**esource **L**ocator **统一资源定位符**
+- URI实际上包括了URL（URI=URL + URN），但是URL过于普及，所以i一般认为URI=URL
+- URI本质上是字符串，这个字符串的作用是**唯一地标记资源的位置或者名字**
+  - 资源可以是静态的，也可以是java等语言提供的动态服务
+
+### URI的格式
+
+- ![image](https://cdn.staticaly.com/gh/glows777/image-hosting@main/BlogImage/image.7g60np52pj40.webp)
+- scheme -> 协议名，常见的有http，https，ws，ftp等
+- 在 scheme 之后，必须是**三个特定的字符**`://`它把 scheme 和后面的部分分离开
+- 随后，`host: port`是主机名称+端口号
+- path是**标记资源所在位置**，path部分必须以`/`开始，也必须包含`/`
+
+- query是参数，在path后面，用`?`表示开始，是键值对的形式字符串，每个键值对之间用`&`分隔
+
+  ```javascript
+  http://nginx.org   // 路径部分被省略，默认就是一个 /
+  https://glows777.github.io/base/Network/http.html // 主机是glows777.github.io，path是 /base/Network/http.html
+  file:///D:/http_study/www/  // ://是特殊字符，//D:/http_study/www/是路径，主机名被省略了，默认是localhost
+  ```
+
+- 在schme://后，还有一个账号密码`user:passwd@`，但是不安全，所以基本没用
+
+- 在最后，还有一个`#fragment`,是**片段标识符**，是 URI 所定位的资源内部的一个“锚点”或者说是“标签”，浏览器可以在获取资源后直接跳转到它指示的位置
+
+### URI编码
+
+- 如果一些特殊的URI包含了`@ & ?`等符号，那么URi回对其进行编码，把非 ASCII 码或特殊字符转换成十六进制字节值，然后前面再加上一个`%`
+- 中文等特殊语言也是如此处理
+
+## 状态码
+
+### 10x
+
 - 
 
+### 20x
 
+### 30x
+
+### 40x
+
+### 50x
 
 
 
