@@ -58,6 +58,7 @@ export default {
             { text: "深浅拷贝", link: "/front_end/JS/深浅拷贝" },
             { text: "EventLoop", link: "/front_end/JS/事件循环" },
             { text: "JS垃圾回收", link: "/front_end/JS/JS垃圾回收机制" },
+            { text: "Proxy的应用", link: "/front_end/JS/Proxy的使用场景" },
           ],
         },
         {
