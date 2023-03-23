@@ -69,24 +69,106 @@
       	Reflect.get(
               target, 
               // 这里要用+index，是因为这里会自动把传入的值字符串化，所以我们要手动转一下
-              (+index > 0) ? index : String(target.length + +index),
+              (+index >= 0) ? index : String(target.length + +index),
               receiver
           )
   })
+  
+  const arr = negativeArray([1, 2, 3, 4, 5])
+  console.log(arr[-1]) // 5
+  console.log(arr[0]) // 1
+  console.log(arr[-2]) // 4
   ```
 
 ### 隐藏属性
 
+- 在JS中，没有私有属性，我们可以通过闭包等方式来实现，这里分享一个通过proxy来实现的例子
+
+- 默认变量以`_`开头为私有变量，这是一种约定，我们下面通过proxy来让他强制私有
+
+- ```javascript
+  const privatePropObj = (target, prefix = '_') => new Proxy(target, {
+      has: (target, key) => (!key.startsWith(prefix) && key in target),
+      
+      ownKeys: (target) => Reflect.ownKeys(target)
+      	.filter(key => !key.startsWith(prefix)),
+      
+      // 这里是key in recevier很关 不是key in target,因为”重写“了捕捉器的has方法
+  	get: (target, key, recevier) => (key in recevier) 
+          ? target[key] 
+      	: undefined
+  })
+  
+  const obj = privatePropObj({
+      name: 'glows777',
+      _age: 18,
+      hobby: 'running'
+  })
+  console.log(obj.name, obj._age, obj.hobby) // 'glows777' undefined 'running' 
+  ```
+
+- 上面的实现方式，还缺少deleteProperty，definePropertty的捕捉器
+
 ### 缓存
 
-### 运算符重载
+- 通过proxy拦截对象的get方法，从而实现缓存，以及缓存有效时间的效果
+
+- 思路： 根据需要将对象包装为无效（和重新同步）属性。 所有访问属性的尝试都首先检查缓存策略，该策略决定返回当前在内存中的内容还是采取其他一些操作
+
+- ```javascript
+  // 默认单位为秒,默认过期时间为10s
+  const createCachedObj = (target, expeiredTimes) => {
+      const createdAt = Date.now();
+      const isExperied = (time = 10) => Date.now() - createdAt > time * 1000
+      return new Proxy(target, {
+      	get: (target, key) => isExperied(expeiredTimes[key]) ? undefined : Reflect.get(target, key)
+  	})
+  }
+  let bankAccount = createCachedObj({
+    balance: 14.93,
+    b: 'b',
+    a: 11
+  }, {
+      a: 15,
+      balance: 10
+  })
+  
+  console.log(bankAccount.balance)    // 14.93
+  
+  setTimeout(() => {
+    console.log(bankAccount.balance)  // undefined
+    console.log(bankAccount.a) // 11
+    console.log(bankAccount.b) // 'undefined'
+  }, 10 * 1000)
+  ```
 
 ### Vue3的响应式实现
+
+- Vue2是遍历data属性，而后通过`Object.defineProperty`来将他们转化为`getter/setter`，并在内部追踪依赖，在属性被访问或修改时通知变化，每个组件实例都有相应的 `watcher` 程序实例，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 `setter` 被调用时，会通知 `watcher` 重新计算，从而致使它关联的组件得以更新
+- 遍历属性对data进行修改很显然效率不高，所以Vue3采用了Proxy来实现响应式
+- `Proxy` 直接代理整个对象而非对象属性，这样只需做一层代理就可以监听同级结构下的所有属性变化，包括**新增属性和删除属性**，同时还可以监听**数组的变化**，而Vue2是通过重写数组的方法来实现响应式的，并且也不能监听新增和删除属性，这个需要通过`$set,$delete`的api来额外实现
 
 ## 其他
 
 - 与大多数全局对象不同 `Reflect` 并非一个构造函数，所以不能通过 [new 运算符](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/new)对其进行调用，或者将 `Reflect` 对象作为一个函数来调用。`Reflect` 的所有属性和方法都是静态的（就像 [`Math`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math) 对象）
 - Reflect对象提供了和proxy的handler相同的静态方法
+
+---
+
+## 参考文章
+
+- [浅谈 ES6 中的 Proxy 用法](https://toflying.com/2022/07/08/6-talk-about-es6-proxy/#handler-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95)
+- [[译]实例解析 ES6 Proxy 使用场景](https://segmentfault.com/a/1190000006035363)
+
+---
+
+
+
+
+
+
+
+
 
 
 
