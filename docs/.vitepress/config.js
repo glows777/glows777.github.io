@@ -131,7 +131,8 @@ export default {
             { text: "http", link: "/base/Network/http" },
             { text: "http报文", link: "/base/Network/http报文" },
             { text: "ssh协议", link: "/base/Network/ssh协议" },
-            { text: "TCP", link: "/base/Network/TCP" }
+            { text: "TCP", link: "/base/Network/TCP" },
+            { text: "TCP的一些机制", link: "/base/Network/TCP相关机制" }
           ],
         },
         {
